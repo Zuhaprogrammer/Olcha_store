@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Select Dropdown with Bootstrap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="multiSelectDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            Select Roles
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="multiSelectDropdown">
+            <li class="dropdown-item">
+                <input type="checkbox" name="role" value="Admin" id="role1">
+                <label for="role1">Admin</label>
+            </li>
+            <li class="dropdown-item">
+                <input type="checkbox" name="role" value="User" id="role2">
+                <label for="role2">User</label>
+            </li>
+            <li class="dropdown-item">
+                <input type="checkbox" name="role" value="Editor" id="role3">
+                <label for="role3">Editor</label>
+            </li>
+            <li class="dropdown-item">
+                <input type="checkbox" name="role" value="Viewer" id="role4">
+                <label for="role4">Viewer</label>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two-Container Layout</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .chat-sidebar {
+            background-color: #f8f9fa;
+            border-right: 1px solid #e0e0e0;
+            height: 100vh;
+        }
+        .chat-content {
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+
+
+        <!-- Left Sidebar Container -->
+        <div class="col-md-3 col-lg-2 chat-sidebar p-3">
+<!--            <h5></h5>-->
+            <ul class="list-group">
+                <li class="list-group-item">Category</li>
+                <li class="list-group-item">Product</li>
+                <li class="list-group-item">Cart</li>
+                <li class="list-group-item">Order</li>
+            </ul>
+        </div>
+
+
+
+        <!-- Right Chat Content Container -->
+        <div class="col-md-9 col-lg-10 chat-content">
+<!--            <h5>Chat Window</h5>-->
+<!--            <div class="chat-box bg-light p-3 rounded mb-2">-->
+<!--                <strong>User:</strong> Hello!-->
+<!--            </div>-->
+<!--            <div class="chat-box bg-white p-3 rounded mb-2">-->
+<!--                <strong>Assistant:</strong> Hi! How can I help you today?-->
+<!--            </div>-->
+            <!-- Additional chat messages -->
+            <div class="container">
+                <a href="#" class="btn btn-primary" role="button" aria-pressed="true">ADD</a>
+<!--                <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Link</a>-->
+            </div>
+
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
