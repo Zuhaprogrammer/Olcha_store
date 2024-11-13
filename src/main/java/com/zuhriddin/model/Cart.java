@@ -51,4 +51,10 @@ public class Cart {
         this.createdDate = resultSet.getDate("created_date");
         this.updatedDate = resultSet.getDate("updated_date");
     }
+
+    public Cart(int userId, int productId, int quantity) {
+        this.userId = userId;
+        this.productId = productId;
+        this.quantity = quantity;
+    }
 }

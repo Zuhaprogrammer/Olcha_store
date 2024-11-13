@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
-@WebServlet("/cart-list")
+@WebServlet("/admin/cart-list")
 public class CartController extends HttpServlet {
     private CartService cartService;
 
@@ -26,6 +26,11 @@ public class CartController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Cart> cartList = cartService.listCarts();
         req.setAttribute("cartList", cartList);
+        String[] userPrivilegesFromCookie = (String[]) req.getAttribute("auth_privileges");
+        if (userPrivilegesFromCookie != null) {
+            List<String> privileges = Arrays.asList(userPrivilegesFromCookie);
+            req.setAttribute("privileges", privileges);
+        }
         req.getRequestDispatcher("cart-list.jsp").forward(req, resp);
     }
 

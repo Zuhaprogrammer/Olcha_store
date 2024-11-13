@@ -12,4 +12,12 @@ public class CartService {
     public List<Cart> listCarts() {
         return cartDao.getCarts();
     }
+
+    public Cart addCart(Cart cart) {
+        return cartDao.addCart(cart);
+    }
+
+    public void deleteCart(int cartId) {
+        cartDao.deleteCart(cartId);
+    }
 }

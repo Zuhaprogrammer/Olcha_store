@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%--
   Created by IntelliJ IDEA.
   User: user
@@ -46,10 +47,10 @@
         <div class="col-md-3 col-lg-2 chat-sidebar p-3">
             <!--            <h5></h5>-->
             <ul class="list-group">
-                <li class="list-group-item"><a>Category</a></li>
-                <li class="list-group-item"><a href="/product-list">Product</a></li>
-                <li class="list-group-item"><a href="/cart-list">Cart</a></li>
-                <li class="list-group-item"><a href="/order-list">Order</a></li>
+                <li class="list-group-item"><a href="/admin/category-list">Category</a></li>
+                <li class="list-group-item"><a href="/admin/product-list">Product</a></li>
+                <li class="list-group-item"><a href="/admin/cart-list">Cart</a></li>
+                <li class="list-group-item"><a href="/admin/order-list">Order</a></li>
             </ul>
         </div>
 
@@ -57,9 +58,9 @@
 
         <!-- Right Chat Content Container -->
         <div class="col-md-9 col-lg-10 chat-content">
-            <div class="container pb-3">
-                <a href="#" class="btn btn-success" role="button" aria-pressed="true">ADD</a>
-            </div>
+<%--            <div class="container pb-3">--%>
+<%--                <a href="#" class="btn btn-success" role="button" aria-pressed="true" style="${fn:contains(privileges, 'Create') ? '' : 'display: none;'}">ADD</a>--%>
+<%--            </div>--%>
 
             <table class="table table-bordered table-responsive">
                 <caption>List of orders</caption>
@@ -79,7 +80,6 @@
                     <th scope="col">PromoCodeMinAmount</th>
                     <th scope="col">OrderCreatedDate</th>
                     <th scope="col">OrderUpdatedDate</th>
-                    <th scope="col">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -99,8 +99,8 @@
                         <td>${order.getPromoCodeMinAmount()}</td>
                         <td>${order.getOrderCreatedDate()}</td>
                         <td>${order.getOrderUpdatedDate()}</td>
-                        <td><a href="#" class="btn btn-danger" role="button" aria-pressed="true">Delete</a>
-                            <a href="#" class="btn btn-warning" role="button" aria-pressed="true">Update</a></td>
+<%--                        <td><a href="/admin/delete-order?id=${order.getId()}" class="btn btn-danger" role="button" aria-pressed="true" style="${fn:contains(privileges, 'Delete') ? '' : 'display: none;'}">Delete</a>--%>
+<%--                            <a href="#" class="btn btn-warning" role="button" aria-pressed="true" style="${fn:contains(privileges, 'Update') ? '' : 'display: none;'}">Update</a></td>--%>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -108,5 +108,7 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

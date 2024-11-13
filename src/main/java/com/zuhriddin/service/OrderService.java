@@ -13,4 +13,8 @@ public class OrderService {
     public List<Order> listOrders () {
         return orderDao.getOrders();
     }
+
+    public void deleteOrder(int orderId) {
+        orderDao.deleteOrder(orderId);
+    }
 }

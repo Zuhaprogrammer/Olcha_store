@@ -3,86 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Two-Container Layout</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .chat-sidebar {
-            background-color: #f8f9fa;
-            border-right: 1px solid #e0e0e0;
-            height: 100vh;
-        }
-        .chat-content {
-            padding: 20px;
-            height: 100vh;
-            overflow-y: auto;
-        }
-    </style>
+    <title>Dynamic Params Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
 
-
-        <!-- Left Sidebar Container -->
-        <div class="col-md-3 col-lg-2 chat-sidebar p-3">
-<!--            <h5></h5>-->
-            <ul class="list-group">
-                <li class="list-group-item">Category</li>
-                <li class="list-group-item">Product</li>
-                <li class="list-group-item">Cart</li>
-                <li class="list-group-item">Order</li>
-            </ul>
+<div class="container my-4">
+    <form id="productForm">
+        <!-- Params Toggle -->
+        <div class="mb-3">
+            <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#paramsSection" aria-expanded="false" aria-controls="paramsSection">
+                Params <span class="bi bi-chevron-down"></span>
+            </button>
         </div>
 
-
-
-        <!-- Right Chat Content Container -->
-        <div class="col-md-9 col-lg-10 chat-content">
-<!--            <h5>Chat Window</h5>-->
-<!--            <div class="chat-box bg-light p-3 rounded mb-2">-->
-<!--                <strong>User:</strong> Hello!-->
-<!--            </div>-->
-<!--            <div class="chat-box bg-white p-3 rounded mb-2">-->
-<!--                <strong>Assistant:</strong> Hi! How can I help you today?-->
-<!--            </div>-->
-            <!-- Additional chat messages -->
-            <div class="container">
-                <a href="#" class="btn btn-primary" role="button" aria-pressed="true">ADD</a>
-<!--                <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Link</a>-->
+        <!-- Params Section (Hidden by default) -->
+        <div class="collapse" id="paramsSection">
+            <div id="paramsContainer">
+                <div class="row g-3 mb-2 param-row">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="paramName[]" placeholder="Parameter Name">
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-control" name="paramType[]">
+                            <option value="text">Text</option>
+                            <option value="number">Number</option>
+                            <option value="date">Date</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="paramValue[]" placeholder="Parameter Value">
+                    </div>
+                </div>
             </div>
-
-            <table class="table">
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                </tbody>
-            </table>
+            <!-- Add More Parameters Button -->
+            <button type="button" class="btn btn-outline-primary" id="addParamBtn">+ Add Parameter</button>
         </div>
-    </div>
+
+        <!-- Submit Button -->
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Add new parameter row dynamically
+    document.getElementById('addParamBtn').addEventListener('click', function () {
+        const paramsContainer = document.getElementById('paramsContainer');
+        const newParamRow = document.createElement('div');
+        newParamRow.classList.add('row', 'g-3', 'mb-2', 'param-row');
+        newParamRow.innerHTML = `
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="paramName[]" placeholder="Parameter Name">
+            </div>
+            <div class="col-md-4">
+                <select class="form-control" name="paramType[]">
+                    <option value="text">Text</option>
+                    <option value="number">Number</option>
+                    <option value="date">Date</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="paramValue[]" placeholder="Parameter Value">
+            </div>
+        `;
+        paramsContainer.appendChild(newParamRow);
+    });
+
+    // Form submit event listener
+    document.getElementById('productForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        const params = {};
+
+        // Collect parameters and add them to an object
+        for (let i = 0; i < formData.getAll('paramName[]').length; i++) {
+            const name = formData.getAll('paramName[]')[i];
+            const type = formData.getAll('paramType[]')[i];
+            const value = formData.getAll('paramValue[]')[i];
+
+            // Value conversion based on type
+            if (type === 'number') {
+                params[name] = isNaN(value) ? 0 : Number(value);  // convert to number
+            } else if (type === 'date') {
+                params[name] = value;  // keep as string (date format)
+            } else {
+                params[name] = value;  // default to string
+            }
+        }
+
+        // Send JSON to backend
+        fetch('/your-servlet-path/ParamsServlet', {  // Replace '/your-servlet-path/ParamsServlet' with your actual servlet path
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ params })
+        }).then(response => response.json())
+            .then(data => console.log(data))  // handle response if needed
+            .catch(error => console.error('Error:', error));
+    });
+</script>
+
 </body>
 </html>

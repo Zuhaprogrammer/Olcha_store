@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
-@WebServlet("/order-list")
+@WebServlet("/admin/order-list")
 public class OrderController extends HttpServlet {
     private OrderService orderService;
 
@@ -26,6 +26,11 @@ public class OrderController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Order> orderList = orderService.listOrders();
         req.setAttribute("orderList", orderList);
+        String[] userPrivilegesFromCookie = (String[]) req.getAttribute("auth_privileges");
+        if (userPrivilegesFromCookie != null) {
+            List<String> privileges = Arrays.asList(userPrivilegesFromCookie);
+            req.setAttribute("privileges", privileges);
+        }
         req.getRequestDispatcher("order-list.jsp").forward(req, resp);
     }
 

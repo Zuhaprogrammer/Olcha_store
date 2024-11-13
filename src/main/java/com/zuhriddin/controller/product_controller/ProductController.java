@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
-@WebServlet("/product-list")
+@WebServlet("/admin/product-list")
 public class ProductController extends HttpServlet {
     private ProductService productService;
 
@@ -26,6 +26,12 @@ public class ProductController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Product> productList = productService.listProducts();
         req.setAttribute("productList", productList);
+        String[] userPrivilegesFromCookie = (String[]) req.getAttribute("auth_privileges");
+        if (userPrivilegesFromCookie != null) {
+            List<String> privileges = Arrays.asList(userPrivilegesFromCookie);
+            req.setAttribute("privileges", privileges);
+        }
+
         req.getRequestDispatcher("product-list.jsp").forward(req, resp);
     }
 

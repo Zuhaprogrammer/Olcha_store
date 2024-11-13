@@ -9,6 +9,7 @@ import java.util.*;
 
 public class OrderDao extends DatabaseConnection{
     private static final String GET_ORDERS = "select * from get_orders()";
+    private static final String DELETE_ORDER = "select * from delete_order(i_id := ?)";
 
     public List<Order> getOrders() {
         try (Connection connection = connection();
@@ -20,6 +21,17 @@ public class OrderDao extends DatabaseConnection{
                 orderList.add(order);
             }
             return orderList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Connection is not exist.");
+        }
+    }
+
+    public void deleteOrder(int orderId) {
+        try (Connection connection = connection();
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ORDER)) {
+            preparedStatement.setInt(1, orderId);
+            preparedStatement.execute();
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Connection is not exist.");
